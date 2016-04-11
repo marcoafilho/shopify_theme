@@ -103,8 +103,7 @@ module ShopifyTheme
 
   def self.config
     @config ||= if File.exist? 'config.yml'
-      config = YAML.load(File.read('config.yml'))
-      config
+      YAML.load(File.read('config.yml'))[ENV['SHOP_ENV'] || 'development']
     else
       puts "config.yml does not exist!" unless test?
       {}

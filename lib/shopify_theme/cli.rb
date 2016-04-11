@@ -169,9 +169,9 @@ module ShopifyTheme
       puts "Watching current folder: #{Dir.pwd}"
       watcher do |filename, event|
         filename = filename.gsub("#{Dir.pwd}/", '')
-        
+
         next unless local_assets_list.include?(filename)
-        
+
         action = if [:changed, :new].include?(event)
           :send_asset
         elsif event == :delete && !options['keep_files']
@@ -208,7 +208,7 @@ module ShopifyTheme
     protected
 
     def config
-      @config ||= YAML.load_file 'config.yml'
+      @config ||= YAML.load_file('config.yml')[ENV['SHOP_ENV'] || 'development']
     end
 
     def shop_theme_url
