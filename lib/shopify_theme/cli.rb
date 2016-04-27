@@ -208,7 +208,11 @@ module ShopifyTheme
     protected
 
     def config
-      @config ||= YAML.load_file('config.yml')[ENV['SHOP_ENV'] || 'development']
+      @config ||= YAML.load_file('config.yml')[env]
+    end
+
+    def env
+      ENV['SHOP_ENV'].to_s.empty? ? 'development' : ENV['SHOP_ENV']
     end
 
     def shop_theme_url

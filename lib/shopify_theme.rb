@@ -103,7 +103,7 @@ module ShopifyTheme
 
   def self.config
     @config ||= if File.exist? 'config.yml'
-      YAML.load(File.read('config.yml'))[ENV['SHOP_ENV'] || 'development']
+      YAML.load(File.read('config.yml'))[env]
     else
       puts "config.yml does not exist!" unless test?
       {}
@@ -112,6 +112,10 @@ module ShopifyTheme
 
   def self.config=(config)
     @config = config
+  end
+
+  def self.env
+    ENV['SHOP_ENV'].to_s.empty? ? 'development' : ENV['SHOP_ENV']
   end
 
   def self.path
